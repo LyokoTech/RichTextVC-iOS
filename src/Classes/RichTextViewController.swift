@@ -9,7 +9,7 @@
 import UIKit
 
 public class RichTextViewController: UIViewController {
-
+    
     static let afterNumberCharacter = "."
     static let spaceAfterNumberCharacter = "\u{00A0}"
     public static let bulletedLineStarter = "\u{2022}\u{00A0}"
@@ -18,13 +18,16 @@ public class RichTextViewController: UIViewController {
     }()
     
     var previousSelection = NSRange()
-
+    
     public var textView = UITextView()
     
     public var regularFont: UIFont?
     public var boldFont: UIFont?
     public var italicFont: UIFont?
     public var boldItalicFont: UIFont?
+    
+    private var keepBoldOff = false
+    private var keepItalicOff = false
     
     /// Replaces text in a range with text in parameter
     ///
@@ -53,7 +56,7 @@ public class RichTextViewController: UIViewController {
     /// - parameter toTextView: The `UITextView` to remove the text from.
     private func removeTextFromRange(range: NSRange, fromTextView textView: UITextView) {
         let substringLength = (textView.text as NSString).substringWithRange(range).length
-
+        
         textView.textStorage.beginEditing()
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
         textView.textStorage.endEditing()
@@ -73,16 +76,16 @@ public class RichTextViewController: UIViewController {
         
         textViewDidChangeSelection(textView)
     }
-
-
+    
+    
     /// Adds text to a textView at a specified index
     ///
     /// - parameter text: The text to add.
     /// - parameter toTextView: The `UITextView` to add the text to.
     /// - parameter atIndex: The index to insert the text at.
     private func addText(text: String, toTextView textView: UITextView, atIndex index: Int) {
-
-        let attributes = index < (textView.text as NSString).length ? textView.attributedText.attributesAtIndex(index, effectiveRange: nil) : textView.typingAttributes
+        
+        let attributes = index < textView.text.length ? textView.attributedText.attributesAtIndex(index, effectiveRange: nil) : textView.typingAttributes
         textView.textStorage.beginEditing()
         textView.textStorage.insertAttributedString(NSAttributedString(string: text, attributes: attributes), atIndex: index)
         textView.textStorage.endEditing()
@@ -95,7 +98,7 @@ public class RichTextViewController: UIViewController {
         
         textViewDidChangeSelection(textView)
     }
-
+    
     /// Toggles a numbered list on the current line if there is a zero-length selection;
     /// else removes all numbered lists in selection if they exist
     /// or adds them to each line if there are no numbered lists in selection
@@ -108,7 +111,7 @@ public class RichTextViewController: UIViewController {
             if selectionContainsNumberedList(textView.selectedRange) {
                 if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location) {
                     let previousNumber = previousNumberOfNumberedList(textView.selectedRange)
-
+                    
                     let range = NSRange(location: newLineIndex+1, length: "\(previousNumber)\(RichTextViewController.numberedListTrailer)".length)
                     removeTextFromRange(range, fromTextView: textView)
                 } else {
@@ -132,7 +135,7 @@ public class RichTextViewController: UIViewController {
                 numbersInSelection = true
                 removeTextFromRange(range, fromTextView: textView)
             }
-
+            
             if selectionContainsNumberedList(textView.selectedRange) {
                 numbersInSelection = true
                 var index = textView.selectedRange.location
@@ -194,7 +197,7 @@ public class RichTextViewController: UIViewController {
     }
     
     /// Returns the range of the next "numbered list" line, starting at the beginning of the line
-    /// 
+    ///
     /// - parameter index: The index to begin searching from.  Search will go after the index
     /// - parameter inString: The string to search in
     ///
@@ -208,13 +211,13 @@ public class RichTextViewController: UIViewController {
         if newLineIndex >= -1 {
             newLineIndex += 1
         }
-
+        
         return NSRange(location: newLineIndex, length: (numberedTrailerIndex - newLineIndex) + RichTextViewController.numberedListTrailer.length)
     }
-
+    
     /// Checks a `NSRange` selection to see if it contains a numbered list.
     /// Returns true if selection contains at least 1 numbered list, false otherwise.
-    /// 
+    ///
     /// - parameter selection: An `NSRange` to check
     ///
     /// - returns: True if selection contains at least 1 numbered list, false otherwise
@@ -252,10 +255,10 @@ public class RichTextViewController: UIViewController {
                 containsNumberedList = true
             }
         }
-
+        
         return containsNumberedList
     }
-
+    
     /// Returns the number of the previous number starting from the location of the selection.
     ///
     /// - parameter selection: The selection to check from
@@ -268,10 +271,10 @@ public class RichTextViewController: UIViewController {
         guard newLineIndex < previousIndex else { return 0 }
         
         newLineIndex += 1
-
+        
         return Int((textView.text as NSString).substringWithRange(NSRange(location: newLineIndex, length: previousIndex - newLineIndex))) ?? 0
     }
-
+    
     /// Appends a number to the text view if we are currently in a list.  Also deletes existing number if there is no text on the line.  This function should be called when the user inserts a new line (presses return)
     ///
     /// - parameter range: The location to insert the number
@@ -322,7 +325,7 @@ public class RichTextViewController: UIViewController {
         }
         return false
     }
-
+    
     /// Removes a number from a numbered list.  This function should be called when the user is backspacing on a number of a numbered list
     ///
     /// - parameter range: The range from which to remove the number
@@ -392,11 +395,11 @@ public class RichTextViewController: UIViewController {
                 let nextTrailerIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location),
                 nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location)
                 where nextTrailerIndex < nextLineIndex {
-                    if previousSelection.location < range.location {
-                        range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length
-                    } else {
-                        range.location -= 1
-                    }
+                if previousSelection.location < range.location {
+                    range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length
+                } else {
+                    range.location -= 1
+                }
             }
         } else {
             if range.location <= textView.text.length - 1 && stringAtRange(NSRange(location: range.location, length: 1)) == RichTextViewController.spaceAfterNumberCharacter {
@@ -423,16 +426,16 @@ public class RichTextViewController: UIViewController {
                 let nextTrailerIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location),
                 nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location)
                 where nextTrailerIndex < nextLineIndex {
-                    if previousSelection.location < range.location {
-                        let oldLocation = range.location
-                        range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length - 2
-                        range.location += 2
-                        let lengthChange = range.location - oldLocation
-                        range.length -= lengthChange
-                    } else {
-                        range.location -= 1
-                        range.length += 1
-                    }
+                if previousSelection.location < range.location {
+                    let oldLocation = range.location
+                    range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length - 2
+                    range.location += 2
+                    let lengthChange = range.location - oldLocation
+                    range.length -= lengthChange
+                } else {
+                    range.location -= 1
+                    range.length += 1
+                }
             }
             
             if range.location + range.length <= textView.text.length - 1 && stringAtRange(NSRange(location: range.location + range.length, length: 1)) == RichTextViewController.spaceAfterNumberCharacter {
@@ -453,16 +456,16 @@ public class RichTextViewController: UIViewController {
                 }
             } else if range.location + range.length < textView.text.length - 1 && stringAtRange(NSRange(location: (range.location + range.length) - 1, length: 1)) == "\n",
                 let nextTrailerIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location + range.length) {
-                    let nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location + range.length) ?? textView.text.length - 1
-                    if nextTrailerIndex < nextLineIndex {
-                        if previousSelection.length < range.length {
-                            var newLength = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location + range.length) ?? range.length - 1
-                            newLength = newLength != range.length - 1 ? (newLength - range.location) + 2 : 0
-                            range.length = newLength
-                        } else {
-                            range.length -= 1
-                        }
+                let nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location + range.length) ?? textView.text.length - 1
+                if nextTrailerIndex < nextLineIndex {
+                    if previousSelection.length < range.length {
+                        var newLength = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location + range.length) ?? range.length - 1
+                        newLength = newLength != range.length - 1 ? (newLength - range.location) + 2 : 0
+                        range.length = newLength
+                    } else {
+                        range.length -= 1
                     }
+                }
             }
         }
         
@@ -490,24 +493,30 @@ public class RichTextViewController: UIViewController {
     // MARK: Bold Functions
     
     public func selectionContainsBold(var range: NSRange) -> Bool {
-        guard let attributedString = textView.attributedText else { return false }
-        
         var bolded = false
         
-        if range.length == 0 && range.location > 0 {
-            range.location = range.location - 1
-            range.length = 1
+        var attributes = [String: AnyObject]()
+        
+        if range.length == 0 {
+            attributes = textView.typingAttributes
+        } else {
+            textView.attributedText.enumerateAttributesInRange(range, options: []) { dictionary, _, _ in
+                attributes = dictionary
+            }
         }
         
-        attributedString.enumerateAttributesInRange(range, options: []) { dictionary, _, _ in
-            guard let font = dictionary[NSFontAttributeName] as? UIFont, boldFont = self.boldFont, boldItalicFont = self.boldItalicFont else { return }
-            
-            bolded = font == boldFont || font == boldItalicFont
+        guard let font = attributes[NSFontAttributeName] as? UIFont,
+            boldFont = boldFont,
+            boldItalicFont = boldItalicFont
+            where !keepBoldOff else {
+                return false
         }
+        
+        bolded = font == boldFont || font == boldItalicFont
         
         return bolded
     }
-
+    
     public func toggleBold() {
         guard let regularFont = regularFont, boldFont = boldFont, italicFont = italicFont, boldItalicFont = boldItalicFont else { return }
         
@@ -520,8 +529,10 @@ public class RichTextViewController: UIViewController {
                 }
             } else if selectionContainsItalic(textView.selectedRange) {
                 applyFontAttribute(italicFont)
+                keepBoldOff = true
             } else {
                 applyFontAttribute(regularFont)
+                keepBoldOff = true
             }
         } else {
             if !selectionContainsBold(textView.selectedRange) {
@@ -532,8 +543,10 @@ public class RichTextViewController: UIViewController {
                 }
             } else if selectionContainsItalic(textView.selectedRange) {
                 textView.typingAttributes[NSFontAttributeName] = italicFont
+                keepBoldOff = true
             } else {
                 textView.typingAttributes[NSFontAttributeName] = regularFont
+                keepBoldOff = true
             }
         }
     }
@@ -541,20 +554,26 @@ public class RichTextViewController: UIViewController {
     // MARK: Italic Functions
     
     public func selectionContainsItalic(var range: NSRange) -> Bool {
-        guard let attributedString = textView.attributedText else { return false }
-        
         var italic = false
         
-        if range.length == 0 && range.location > 0 {
-            range.location = range.location - 1
-            range.length = 1
+        var attributes = [String: AnyObject]()
+        
+        if range.length == 0 {
+            attributes = textView.typingAttributes
+        } else {
+            textView.attributedText.enumerateAttributesInRange(range, options: []) { dictionary, _, _ in
+                attributes = dictionary
+            }
         }
         
-        attributedString.enumerateAttributesInRange(range, options: []) { dictionary, _, _ in
-            guard let font = dictionary[NSFontAttributeName] as? UIFont, italicFont = self.italicFont, boldItalicFont = self.boldItalicFont else { return }
-            
-            italic = font == italicFont || font == boldItalicFont
+        guard let font = attributes[NSFontAttributeName] as? UIFont,
+            italicFont = italicFont,
+            boldItalicFont = boldItalicFont
+            where !keepItalicOff else {
+                return false
         }
+        
+        italic = font == italicFont || font == boldItalicFont
         
         return italic
     }
@@ -571,8 +590,10 @@ public class RichTextViewController: UIViewController {
                 }
             } else if selectionContainsBold(textView.selectedRange) {
                 applyFontAttribute(boldFont)
+                keepItalicOff = true
             } else {
                 applyFontAttribute(regularFont)
+                keepItalicOff = true
             }
         } else {
             if !selectionContainsItalic(textView.selectedRange) {
@@ -583,8 +604,10 @@ public class RichTextViewController: UIViewController {
                 }
             } else if selectionContainsBold(textView.selectedRange) {
                 textView.typingAttributes[NSFontAttributeName] = boldFont
+                keepItalicOff = true
             } else {
                 textView.typingAttributes[NSFontAttributeName] = regularFont
+                keepItalicOff = true
             }
         }
     }
@@ -663,7 +686,7 @@ public class RichTextViewController: UIViewController {
                 var index = textView.selectedRange.location
                 while index < textView.text.length {
                     guard let nextBulletIndex = textView.text.nextIndexOfSubstring(RichTextViewController.bulletedLineStarter, fromIndex: index) else { break }
-
+                    
                     removeTextFromRange(NSRange(location: nextBulletIndex, length: RichTextViewController.bulletedLineStarter.length), fromTextView: textView)
                     index = nextBulletIndex
                 }
@@ -689,14 +712,17 @@ public class RichTextViewController: UIViewController {
 extension RichTextViewController: UITextViewDelegate {
     
     public func textViewDidChangeSelection(textView: UITextView) {
+        keepBoldOff = false
+        keepItalicOff = false
+        
         moveSelectionIfInRangeOfNumberedList()
         moveSelectionIfInRangeOfBulletedList()
         previousSelection = textView.selectedRange
     }
-
+    
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         var changed = false
-
+        
         switch text {
         case "\n":
             changed = addedListsIfActiveInRange(range)
@@ -705,7 +731,7 @@ extension RichTextViewController: UITextViewDelegate {
         default:
             break
         }
-
+        
         return !changed
     }
     
