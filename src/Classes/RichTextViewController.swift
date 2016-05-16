@@ -68,7 +68,7 @@ public class RichTextViewController: UIViewController {
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
         textView.textStorage.endEditing()
 
-        if range.comesBeforeRange(textView.selectedRange) || range.endLocation == range.endLocation {
+        if range.comesBeforeRange(textView.selectedRange) {
             textView.selectedRange.location -= (substringLength - (initialEndLocation - textView.selectedRange.endLocation))
         } else if range.containedInRange(textView.selectedRange) {
             textView.selectedRange.length -= substringLength
@@ -497,7 +497,7 @@ public class RichTextViewController: UIViewController {
     
     private func removeFormattingFromListLeadsInRange(range: NSRange) {
         guard let regularFont = regularFont else { return }
-        guard let listHeadRegex = try? NSRegularExpression(pattern: "^(([0-9]+\\.\\u00A0)|(\\u2022\\u00A0)).*$", options: .AnchorsMatchLines) where range.length > 0 else {
+        guard range.length > 0, let listHeadRegex = try? NSRegularExpression(pattern: "^(([0-9]+\\.\\u00A0)|(\\u2022\\u00A0)).*$", options: .AnchorsMatchLines) else {
             print("Failed to remove formatting")
             return
         }
