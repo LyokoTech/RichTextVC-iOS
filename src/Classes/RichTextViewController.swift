@@ -62,23 +62,19 @@ public class RichTextViewController: UIViewController {
     /// - parameter toTextView: The `UITextView` to remove the text from.
     private func removeTextFromRange(range: NSRange, fromTextView textView: UITextView) {
         let substringLength = (textView.text as NSString).substringWithRange(range).length
-        let initialEndLocation = textView.selectedRange.endLocation
+        let initialRange = textView.selectedRange
         
         textView.textStorage.beginEditing()
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
         textView.textStorage.endEditing()
 
         if range.comesBeforeRange(textView.selectedRange) {
-            textView.selectedRange.location -= (substringLength - (initialEndLocation - textView.selectedRange.endLocation))
+            textView.selectedRange.location -= (substringLength - (initialRange.location - textView.selectedRange.location))
+            textView.selectedRange.length = initialRange.length
         } else if range.containedInRange(textView.selectedRange) {
-            textView.selectedRange.length -= substringLength
-        } else if range.containsBeginningOfRange(textView.selectedRange) {
-            let inSelectionRemoved = textView.selectedRange.location - range.location
-            let outSelectionRemoved = range.length - inSelectionRemoved
-            textView.selectedRange.location -= outSelectionRemoved
-            textView.selectedRange.length -= inSelectionRemoved
-        } else if range.containsEndOfRange(textView.selectedRange) {
-            textView.selectedRange.length -= textView.selectedRange.endLocation - range.location
+            textView.selectedRange.length -= (substringLength - (initialRange.length - textView.selectedRange.length))
+        } else if range.location == textView.selectedRange.location && range.length == textView.selectedRange.length {
+            textView.selectedRange.length = 0
         }
 
         textViewDidChangeSelection(textView)
