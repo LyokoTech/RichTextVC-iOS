@@ -62,13 +62,14 @@ public class RichTextViewController: UIViewController {
     /// - parameter toTextView: The `UITextView` to remove the text from.
     private func removeTextFromRange(range: NSRange, fromTextView textView: UITextView) {
         let substringLength = (textView.text as NSString).substringWithRange(range).length
-
+        
+        let initialEndLocation = textView.selectedRange.endLocation
         textView.textStorage.beginEditing()
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
         textView.textStorage.endEditing()
 
-        if range.comesBeforeRange(textView.selectedRange) {
-            textView.selectedRange.location -= substringLength
+        if range.comesBeforeRange(textView.selectedRange) || range.endLocation == range.endLocation {
+            textView.selectedRange.location -= (substringLength - (initialEndLocation - textView.selectedRange.endLocation))
         } else if range.containedInRange(textView.selectedRange) {
             textView.selectedRange.length -= substringLength
         } else if range.containsBeginningOfRange(textView.selectedRange) {
@@ -174,8 +175,8 @@ public class RichTextViewController: UIViewController {
                 var index = textView.selectedRange.location
 
                 while index < textView.text.length {
-                    guard let newLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: index) where
-                        newLineIndex < textView.selectedRange.endLocation else { break }
+                    guard let newLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: index) where newLineIndex < textView.selectedRange.endLocation else { break }
+                    
                     addText("\(newNumber)\(RichTextViewController.numberedListTrailer)", toTextView: textView, atIndex: newLineIndex + 1)
                     newNumber += 1
                     index = newLineIndex + 1
@@ -212,7 +213,6 @@ public class RichTextViewController: UIViewController {
         guard let numberedTrailerIndex = string.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: index) else { return nil }
         
         var newLineIndex = string.previousIndexOfSubstring("\n", fromIndex: numberedTrailerIndex) ?? -1
-        
         if newLineIndex >= -1 {
             newLineIndex += 1
         }
@@ -496,12 +496,10 @@ public class RichTextViewController: UIViewController {
     }
     
     private func removeFormattingFromListLeadsInRange(range: NSRange) {
-        guard let listHeadRegex = try? NSRegularExpression(pattern: "^(([0-9]+\\.\\u00A0)|(\\u2022\\u00A0)).*$", options: .AnchorsMatchLines),
-            regularFont = regularFont where
-            range.length > 0
-            else {
-                print("Failed to remove formatting")
-                return
+        guard let regularFont = regularFont else { return }
+        guard let listHeadRegex = try? NSRegularExpression(pattern: "^(([0-9]+\\.\\u00A0)|(\\u2022\\u00A0)).*$", options: .AnchorsMatchLines) where range.length > 0 else {
+            print("Failed to remove formatting")
+            return
         }
         
         listHeadRegex.matchesInString(textView.text, options: [], range: range).forEach { match in
