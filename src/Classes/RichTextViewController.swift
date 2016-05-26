@@ -29,12 +29,36 @@ public class RichTextViewController: UIViewController {
     private var disableBold = false
     private var disableItalic = false
     
+    private var defaultParagraphStyle: NSParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 0
+        paragraphStyle.headIndent = 0
+        
+        return paragraphStyle
+    }()
+    private var defaultListParagraphStyle: NSParagraphStyle = {
+        let listParagraphStyle = NSMutableParagraphStyle()
+        listParagraphStyle.firstLineHeadIndent = 7
+        listParagraphStyle.headIndent = 7
+        
+        return listParagraphStyle
+    }()
     private var defaultListAttributes: [String: AnyObject]? {
         guard let regularFont = regularFont else { return nil }
         
-        return [NSFontAttributeName: regularFont]
+        return [NSFontAttributeName: regularFont, NSParagraphStyleAttributeName: defaultListParagraphStyle]
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(textChanged), name: UITextViewTextDidChangeNotification, object: nil)
+    }
+    
     /// Replaces text in a range with text in parameter
     ///
     /// - parameter range: The range at which to replace the string.
@@ -64,6 +88,8 @@ public class RichTextViewController: UIViewController {
         let substringLength = (textView.text as NSString).substringWithRange(range).length
         let initialRange = textView.selectedRange
         
+        applyDefaultParagraphStyleToSelectedRange(range)
+        
         textView.textStorage.beginEditing()
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
         textView.textStorage.endEditing()
@@ -80,6 +106,21 @@ public class RichTextViewController: UIViewController {
         textViewDidChangeSelection(textView)
     }
 
+    /// Apply the default paragraph style (remove list paragraph style) from after the \n previous to the selected area to before the \n past the selected area
+    func applyDefaultParagraphStyleToSelectedRange(selectedRange: NSRange) {
+        let previousNewLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: selectedRange.location) ?? 0
+        let nextNewLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: selectedRange.location + selectedRange.length) ?? textView.text.length
+        let fullChangeRange = NSRange(location: previousNewLineIndex, length: nextNewLineIndex - previousNewLineIndex)
+        
+        textView.textStorage.beginEditing()
+        textView.textStorage.addAttribute(NSParagraphStyleAttributeName, value: defaultParagraphStyle, range: fullChangeRange)
+        textView.textStorage.endEditing()
+        
+        if textView.selectedRange.endLocation == textView.text.length {
+            textView.typingAttributes[NSParagraphStyleAttributeName] = defaultParagraphStyle
+        }
+    }
+    
     /// Adds text to a textView at a specified index
     ///
     /// - parameter text: The text to add.
@@ -116,11 +157,11 @@ public class RichTextViewController: UIViewController {
             if selectionContainsNumberedList(textView.selectedRange) {
                 if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location) {
                     let previousNumber = previousNumberOfNumberedList(textView.selectedRange)
-
-                    let range = NSRange(location: newLineIndex+1, length: "\(previousNumber)\(RichTextViewController.numberedListTrailer)".length)
+                    
+                    let range = NSRange(location: newLineIndex + 1, length: "\(previousNumber)\(RichTextViewController.numberedListTrailer)".length)
                     removeTextFromRange(range, fromTextView: textView)
                 } else {
-                    removeTextFromRange(NSRange(location: 0, length: RichTextViewController.numberedListTrailer.length+1), fromTextView: textView)
+                    removeTextFromRange(NSRange(location: 0, length: RichTextViewController.numberedListTrailer.length + 1), fromTextView: textView)
                 }
             } else {
                 if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location) {
@@ -689,6 +730,14 @@ extension RichTextViewController: UITextViewDelegate {
         }
         
         return !changed
+    }
+    
+    func textChanged(notification: NSNotification) {
+        guard notification.object as? UITextView == textView else { return }
+        
+        if textView.selectedRange.endLocation == textView.text.length {
+            textView.typingAttributes[NSParagraphStyleAttributeName] = defaultParagraphStyle
+        }
     }
     
 }
