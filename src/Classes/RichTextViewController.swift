@@ -155,9 +155,7 @@ public class RichTextViewController: UIViewController {
 
         if textView.selectedRange.length == 0 {
             if selectionContainsNumberedList(textView.selectedRange) {
-                if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location) {
-                    let previousNumber = previousNumberOfNumberedList(textView.selectedRange)
-                    
+                if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location), previousNumber = previousNumberOfNumberedList(textView.selectedRange) {
                     let range = NSRange(location: newLineIndex + 1, length: "\(previousNumber)\(RichTextViewController.numberedListTrailer)".length)
                     removeTextFromRange(range, fromTextView: textView)
                 } else {
@@ -199,8 +197,8 @@ public class RichTextViewController: UIViewController {
 
             if !numbersInSelection {
                 let previousNumber = previousNumberOfNumberedList(textView.selectedRange)
-                var newNumber = previousNumber + 1
-
+                var newNumber = (previousNumber ?? 0) + 1
+                
                 let previousNumberedIndex = textView.text.previousIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: textView.selectedRange.location) ?? -2
                 let previousNewLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: textView.selectedRange.location) ?? -1
 
@@ -269,15 +267,10 @@ public class RichTextViewController: UIViewController {
         
         if selection.length == 0 {
             if let previousIndex = textView.text.previousIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: selection.location) {
-                if let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: selection.location) {
-                    if let comparisonIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: newLineIndex) where previousIndex == comparisonIndex {
-                        containsNumberedList = true
-                    }
-                } else {
+                let newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: selection.location) ?? 0
+                if let comparisonIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: newLineIndex) where previousIndex == comparisonIndex {
                     containsNumberedList = true
                 }
-            } else {
-                containsNumberedList = false
             }
         } else {
             let previousNumberedListIndex = textView.text.previousIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: selection.location) ?? selection.location
@@ -305,16 +298,20 @@ public class RichTextViewController: UIViewController {
     ///
     /// - parameter selection: The selection to check from
     ///
-    /// - returns: Previous number if it exists in the current line, `nil` otherwise
-    private func previousNumberOfNumberedList(selection: NSRange) -> Int {
-        guard let previousIndex = textView.text.previousIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: selection.location) else { return 0 }
+    /// - returns: Previous number if it exists in the current line or previous line, `nil` otherwise
+    private func previousNumberOfNumberedList(selection: NSRange) -> Int? {
+        guard let previousNumberTrailIndex = textView.text.previousIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: selection.location) else { return nil }
         
-        var newLineIndex = textView.text.previousIndexOfSubstring("\n", fromIndex: selection.location) ?? -1
-        guard newLineIndex < previousIndex else { return 0 }
+        let indexOfPreviousNumberNewLine = textView.text.nextIndexOfSubstring("\n", fromIndex: previousNumberTrailIndex) ?? textView.text.length
+        let indexOfNextNewLine = textView.text.nextIndexOfSubstring("\n", fromIndex: min(indexOfPreviousNumberNewLine + 1, textView.text.length)) ?? textView.text.length
         
-        newLineIndex += 1
+        if selection.location <= indexOfNextNewLine {
+            // Find the previous new line so we can get the entire number
+            let indexOfNewLineBeforePreviousNumberTrailIndex = (textView.text.previousIndexOfSubstring("\n", fromIndex: previousNumberTrailIndex) ?? -1) + 1
+            return Int((textView.text as NSString).substringWithRange(NSRange(location: indexOfNewLineBeforePreviousNumberTrailIndex, length: previousNumberTrailIndex - indexOfNewLineBeforePreviousNumberTrailIndex)))
+        }
         
-        return Int((textView.text as NSString).substringWithRange(NSRange(location: newLineIndex, length: previousIndex - newLineIndex))) ?? 0
+        return nil
     }
     
     /// Appends a number to the text view if we are currently in a list.  Also deletes existing number if there is no text on the line.  This function should be called when the user inserts a new line (presses return)
@@ -433,14 +430,14 @@ public class RichTextViewController: UIViewController {
                 } else {
                     range.location = textView.text.previousIndexOfSubstring("\n", fromIndex: range.location) ?? 0
                 }
-            } else if range.location > 0 && range.location < textView.text.length - 1 && stringAtRange(NSRange(location: range.location - 1, length: 1)) == "\n",
-                let nextTrailerIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location),
-                nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location)
-                where nextTrailerIndex < nextLineIndex {
-                if previousSelection.location < range.location {
-                    range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length
-                } else {
-                    range.location -= 1
+            } else if range.location > 0 && range.location < textView.text.length - 1 && stringAtRange(NSRange(location: range.location - 1, length: 1)) == "\n", let nextTrailerIndex = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) {
+                let nextLineIndex = textView.text.nextIndexOfSubstring("\n", fromIndex: range.location) ?? textView.text.length
+                if nextTrailerIndex < nextLineIndex {
+                    if previousSelection.location < range.location {
+                        range.location = textView.text.nextIndexOfSubstring(RichTextViewController.numberedListTrailer, fromIndex: range.location) ?? textView.text.length
+                    } else {
+                        range.location -= 1
+                    }
                 }
             }
         } else {
