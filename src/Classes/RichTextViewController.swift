@@ -84,11 +84,13 @@ public class RichTextViewController: UIViewController {
     ///
     /// - parameter range: The range of the text to remove.
     /// - parameter toTextView: The `UITextView` to remove the text from.
-    private func removeTextFromRange(range: NSRange, fromTextView textView: UITextView) {
+    private func removeTextFromRange(range: NSRange, fromTextView textView: UITextView, applyDefault: Bool = true) {
         let substringLength = (textView.text as NSString).substringWithRange(range).length
         let initialRange = textView.selectedRange
         
-        applyDefaultParagraphStyleToSelectedRange(range)
+        if applyDefault {
+            applyDefaultParagraphStyleToSelectedRange(range)
+        }
         
         textView.textStorage.beginEditing()
         textView.textStorage.replaceCharactersInRange(range, withAttributedString: NSAttributedString(string: ""))
@@ -375,7 +377,7 @@ public class RichTextViewController: UIViewController {
         
         let previousNumber = previousNumberOfNumberedList(textView.selectedRange) ?? 0
         let previousNumberString = "\(previousNumber)\(RichTextViewController.numberedListTrailer)"
-        let previousNumberRange = NSRange(location: range.location - previousNumberString.length + 1, length: previousNumberString.length)
+        var previousNumberRange = NSRange(location: range.location - previousNumberString.length + 1, length: previousNumberString.length)
         let previousBulletRange = NSRange(location: range.location - RichTextViewController.bulletedLineStarter.length + 1, length: RichTextViewController.bulletedLineStarter.length)
         let adjustedRange = NSRange(location: range.location + 1, length: 0)
         
@@ -385,7 +387,35 @@ public class RichTextViewController: UIViewController {
             let subString = (textView.text as NSString).substringWithRange(previousNumberRange)
             
             if subString == previousNumberString {
-                removeTextFromRange(previousNumberRange, fromTextView: textView)
+                if previousNumber > 1 {
+                    // Not at the beginning of the list, so collapse the list
+                    let space = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+                    let text = textView.text as NSString
+                    while previousNumberRange.location > 0 {
+                        if space.characterIsMember(text.characterAtIndex(previousNumberRange.location - 1)) {
+                            previousNumberRange.location = previousNumberRange.location - 1
+                            previousNumberRange.length = previousNumberRange.length + 1
+                        } else {
+                            break
+                        }
+                    }
+                }
+                
+                // Update following numbers in list so there isn't a hole
+                var newNumber = previousNumber
+                var index = previousNumberRange.location
+                
+                repeat {
+                    let stringToReplace = "\(newNumber + 1)\(RichTextViewController.numberedListTrailer)"
+                    index = textView.text.nextIndexOfSubstring(stringToReplace, fromIndex: index) ?? -1
+                    guard index >= 0 else { break }
+                    
+                    replaceTextInRange(NSRange(location: index, length: stringToReplace.length), withText: "\(newNumber)\(RichTextViewController.numberedListTrailer)", inTextView: textView)
+                    newNumber += 1
+                    index += 1
+                } while index < textView.text.length
+                
+                removeTextFromRange(previousNumberRange, fromTextView: textView, applyDefault: previousNumber == 1)
                 removed = true
             }
             return removed
