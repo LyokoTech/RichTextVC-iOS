@@ -14,9 +14,9 @@
 		110942031DCCF0A00054553C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110942011DCCF0A00054553C /* LaunchScreen.storyboard */; };
 		1109420E1DCCF0A00054553C /* RichTextVC_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109420D1DCCF0A00054553C /* RichTextVC_iOSTests.swift */; };
 		110942191DCCF0A00054553C /* RichTextVC_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110942181DCCF0A00054553C /* RichTextVC_iOSUITests.swift */; };
-		1109422A1DCCF0C80054553C /* NSRange+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110942271DCCF0C80054553C /* NSRange+Extras.swift */; };
-		1109422B1DCCF0C80054553C /* RichTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110942281DCCF0C80054553C /* RichTextViewController.swift */; };
-		1109422C1DCCF0C80054553C /* String+Searching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110942291DCCF0C80054553C /* String+Searching.swift */; };
+		113E9D351DCCF386006FCCC0 /* NSRange+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E9D321DCCF386006FCCC0 /* NSRange+Extras.swift */; };
+		113E9D361DCCF386006FCCC0 /* RichTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E9D331DCCF386006FCCC0 /* RichTextViewController.swift */; };
+		113E9D371DCCF386006FCCC0 /* String+Searching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E9D341DCCF386006FCCC0 /* String+Searching.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +50,9 @@
 		110942141DCCF0A00054553C /* RichTextVC-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RichTextVC-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		110942181DCCF0A00054553C /* RichTextVC_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextVC_iOSUITests.swift; sourceTree = "<group>"; };
 		1109421A1DCCF0A00054553C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		110942271DCCF0C80054553C /* NSRange+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Extras.swift"; sourceTree = "<group>"; };
-		110942281DCCF0C80054553C /* RichTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextViewController.swift; sourceTree = "<group>"; };
-		110942291DCCF0C80054553C /* String+Searching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Searching.swift"; sourceTree = "<group>"; };
+		113E9D321DCCF386006FCCC0 /* NSRange+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRange+Extras.swift"; path = "../../src/Classes/NSRange+Extras.swift"; sourceTree = "<group>"; };
+		113E9D331DCCF386006FCCC0 /* RichTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RichTextViewController.swift; path = ../../src/Classes/RichTextViewController.swift; sourceTree = "<group>"; };
+		113E9D341DCCF386006FCCC0 /* String+Searching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Searching.swift"; path = "../../src/Classes/String+Searching.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +135,9 @@
 		110942261DCCF0AF0054553C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				110942271DCCF0C80054553C /* NSRange+Extras.swift */,
-				110942281DCCF0C80054553C /* RichTextViewController.swift */,
-				110942291DCCF0C80054553C /* String+Searching.swift */,
+				113E9D321DCCF386006FCCC0 /* NSRange+Extras.swift */,
+				113E9D331DCCF386006FCCC0 /* RichTextViewController.swift */,
+				113E9D341DCCF386006FCCC0 /* String+Searching.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -279,9 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1109422A1DCCF0C80054553C /* NSRange+Extras.swift in Sources */,
-				1109422B1DCCF0C80054553C /* RichTextViewController.swift in Sources */,
-				1109422C1DCCF0C80054553C /* String+Searching.swift in Sources */,
+				113E9D351DCCF386006FCCC0 /* NSRange+Extras.swift in Sources */,
+				113E9D361DCCF386006FCCC0 /* RichTextViewController.swift in Sources */,
+				113E9D371DCCF386006FCCC0 /* String+Searching.swift in Sources */,
 				110941FB1DCCF0A00054553C /* ViewController.swift in Sources */,
 				110941F91DCCF0A00054553C /* AppDelegate.swift in Sources */,
 			);
@@ -528,6 +528,7 @@
 				1109421F1DCCF0A00054553C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		110942201DCCF0A00054553C /* Build configuration list for PBXNativeTarget "RichTextVC-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +537,7 @@
 				110942221DCCF0A00054553C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		110942231DCCF0A00054553C /* Build configuration list for PBXNativeTarget "RichTextVC-iOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +546,7 @@
 				110942251DCCF0A00054553C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
