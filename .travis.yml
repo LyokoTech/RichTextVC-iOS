@@ -2,9 +2,7 @@ language: objective-c
 osx_image: xcode8
 notifications:
   slack: lyokotech:7AmemNHORB2ShidELPFrYeUO
-  email: false
-before_install:
-- gem install cocoapods -v '1.1.0.rc.2' 
+  email: false 
 script:
 - set -o pipefail && xcodebuild clean build -workspace Example/RichTextVC-iOS-Example.xcworkspace -scheme RichTextVC-iOS-Example -sdk iphonesimulator -destination 'OS=9.3,name=iPhone 5,platform=iOS Simulator' | xcpretty
 - pod lib lint
