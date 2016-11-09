@@ -43,7 +43,7 @@ open class RichTextViewController: UIViewController {
         
         return listParagraphStyle
     }()
-    fileprivate var defaultListAttributes: [String: AnyObject]? {
+    fileprivate var defaultListAttributes: [String: Any]? {
         guard let regularFont = regularFont else { return nil }
         
         return [NSFontAttributeName: regularFont, NSParagraphStyleAttributeName: defaultListParagraphStyle]
@@ -733,7 +733,7 @@ open class RichTextViewController: UIViewController {
 
 extension RichTextViewController: UITextViewDelegate {
     
-    public func textViewDidChangeSelection(_ textView: UITextView) {
+    open func textViewDidChangeSelection(_ textView: UITextView) {
         disableBold = false
         disableItalic = false
         
@@ -742,7 +742,7 @@ extension RichTextViewController: UITextViewDelegate {
         previousSelection = textView.selectedRange
     }
     
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         var changed = false
         
         switch text {
