@@ -84,8 +84,8 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/RichTextVC-iOS-iOS9.3/RichTextVC_iOS.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RichTextVC-iOS-iOS10.1/RichTextVC_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/RichTextVC-iOS-iOS9.3/RichTextVC_iOS.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RichTextVC-iOS-iOS10.1/RichTextVC_iOS.framework"
 fi

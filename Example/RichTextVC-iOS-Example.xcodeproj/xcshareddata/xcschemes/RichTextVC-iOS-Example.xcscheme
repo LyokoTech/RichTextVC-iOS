@@ -38,6 +38,16 @@
                ReferencedContainer = "container:RichTextVC-iOS-Example.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "119567F51DF0CF5500BF7F13"
+               BuildableName = "RichTextVC-iOS-ExampleTests.xctest"
+               BlueprintName = "RichTextVC-iOS-ExampleTests"
+               ReferencedContainer = "container:RichTextVC-iOS-Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

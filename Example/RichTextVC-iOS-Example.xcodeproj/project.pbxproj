@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		102F9A1BC2AD9EA740D606FB /* Pods_RichTextVC_iOS_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419DA07571D1004D059D8FC8 /* Pods_RichTextVC_iOS_Tests.framework */; };
+		119567F91DF0CF5500BF7F13 /* RichTextVC_iOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119567F81DF0CF5500BF7F13 /* RichTextVC_iOS_ExampleTests.swift */; };
 		3897A49EBC687B13F31D8099 /* Pods_RichTextVC_iOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2AD4AB622F55CF87DE630B5 /* Pods_RichTextVC_iOS_Example.framework */; };
 		5959A6861CCAA4CC005031E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5959A6851CCAA4CC005031E6 /* AppDelegate.swift */; };
 		5959A6881CCAA4CC005031E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5959A6871CCAA4CC005031E6 /* ViewController.swift */; };
@@ -15,9 +16,17 @@
 		5959A68D1CCAA4CC005031E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5959A68C1CCAA4CC005031E6 /* Assets.xcassets */; };
 		5959A6901CCAA4CC005031E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5959A68E1CCAA4CC005031E6 /* LaunchScreen.storyboard */; };
 		5959A69B1CCAA4CC005031E6 /* RichTextVC_iOS_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5959A69A1CCAA4CC005031E6 /* RichTextVC_iOS_ExampleUITests.swift */; };
+		7E7D65A1FBCF1639009B58B7 /* Pods_RichTextVC_iOS_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95984DD4F93C68D5EFC09F0D /* Pods_RichTextVC_iOS_ExampleTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		119567FB1DF0CF5500BF7F13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5959A67A1CCAA4CC005031E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5959A6811CCAA4CC005031E6;
+			remoteInfo = "RichTextVC-iOS-Example";
+		};
 		5959A6971CCAA4CC005031E6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5959A67A1CCAA4CC005031E6 /* Project object */;
@@ -28,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		119567F61DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RichTextVC-iOS-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		119567F81DF0CF5500BF7F13 /* RichTextVC_iOS_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextVC_iOS_ExampleTests.swift; sourceTree = "<group>"; };
+		119567FA1DF0CF5500BF7F13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		419DA07571D1004D059D8FC8 /* Pods_RichTextVC_iOS_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextVC_iOS_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		493CDC80A3392B49A8BE7BF0 /* Pods-RichTextVC-iOS-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-Example/Pods-RichTextVC-iOS-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5959A6821CCAA4CC005031E6 /* RichTextVC-iOS-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RichTextVC-iOS-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,11 +54,22 @@
 		5959A69C1CCAA4CC005031E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6813546731D067CE65DD9C29 /* Pods-RichTextVC-iOS-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-Tests/Pods-RichTextVC-iOS-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		7DC9CEF39D23A51166AAD19B /* Pods-RichTextVC-iOS-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-Example/Pods-RichTextVC-iOS-Example.release.xcconfig"; sourceTree = "<group>"; };
+		8887BF4486E5693B7770B505 /* Pods-RichTextVC-iOS-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-ExampleTests/Pods-RichTextVC-iOS-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		8C557A8CC724D55D2BDCCB5F /* Pods-RichTextVC-iOS-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-ExampleTests/Pods-RichTextVC-iOS-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		95984DD4F93C68D5EFC09F0D /* Pods_RichTextVC_iOS_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextVC_iOS_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AD4AB622F55CF87DE630B5 /* Pods_RichTextVC_iOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RichTextVC_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6060A7906FB6F67F03C1B0E /* Pods-RichTextVC-iOS-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextVC-iOS-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RichTextVC-iOS-Tests/Pods-RichTextVC-iOS-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		119567F31DF0CF5500BF7F13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E7D65A1FBCF1639009B58B7 /* Pods_RichTextVC_iOS_ExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5959A67F1CCAA4CC005031E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,11 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		119567F71DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				119567F81DF0CF5500BF7F13 /* RichTextVC_iOS_ExampleTests.swift */,
+				119567FA1DF0CF5500BF7F13 /* Info.plist */,
+			);
+			path = "RichTextVC-iOS-ExampleTests";
+			sourceTree = "<group>";
+		};
 		5959A6791CCAA4CC005031E6 = {
 			isa = PBXGroup;
 			children = (
 				5959A6841CCAA4CC005031E6 /* RichTextVC-iOS-Example */,
 				5959A6991CCAA4CC005031E6 /* RichTextVC-iOS-ExampleUITests */,
+				119567F71DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests */,
 				5959A6831CCAA4CC005031E6 /* Products */,
 				B52755A118507E7833A03D1E /* Pods */,
 				B9801F35BB55A9D76A2CEBDD /* Frameworks */,
@@ -82,6 +115,7 @@
 			children = (
 				5959A6821CCAA4CC005031E6 /* RichTextVC-iOS-Example.app */,
 				5959A6961CCAA4CC005031E6 /* RichTextVC-iOS-Tests.xctest */,
+				119567F61DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +149,8 @@
 				7DC9CEF39D23A51166AAD19B /* Pods-RichTextVC-iOS-Example.release.xcconfig */,
 				E6060A7906FB6F67F03C1B0E /* Pods-RichTextVC-iOS-Tests.debug.xcconfig */,
 				6813546731D067CE65DD9C29 /* Pods-RichTextVC-iOS-Tests.release.xcconfig */,
+				8C557A8CC724D55D2BDCCB5F /* Pods-RichTextVC-iOS-ExampleTests.debug.xcconfig */,
+				8887BF4486E5693B7770B505 /* Pods-RichTextVC-iOS-ExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -124,6 +160,7 @@
 			children = (
 				A2AD4AB622F55CF87DE630B5 /* Pods_RichTextVC_iOS_Example.framework */,
 				419DA07571D1004D059D8FC8 /* Pods_RichTextVC_iOS_Tests.framework */,
+				95984DD4F93C68D5EFC09F0D /* Pods_RichTextVC_iOS_ExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,6 +168,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		119567F51DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 119567FF1DF0CF5500BF7F13 /* Build configuration list for PBXNativeTarget "RichTextVC-iOS-ExampleTests" */;
+			buildPhases = (
+				83A65C45CD374C8C8655E5C4 /* [CP] Check Pods Manifest.lock */,
+				119567F21DF0CF5500BF7F13 /* Sources */,
+				119567F31DF0CF5500BF7F13 /* Frameworks */,
+				119567F41DF0CF5500BF7F13 /* Resources */,
+				C7F00EBFEA9AC7167C0AE77A /* [CP] Embed Pods Frameworks */,
+				93DD62D80B05B64DD705FD38 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				119567FC1DF0CF5500BF7F13 /* PBXTargetDependency */,
+			);
+			name = "RichTextVC-iOS-ExampleTests";
+			productName = "RichTextVC-iOS-ExampleTests";
+			productReference = 119567F61DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5959A6811CCAA4CC005031E6 /* RichTextVC-iOS-Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5959A69F1CCAA4CC005031E6 /* Build configuration list for PBXNativeTarget "RichTextVC-iOS-Example" */;
@@ -178,10 +236,15 @@
 		5959A67A1CCAA4CC005031E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = LyokoTech;
 				TargetAttributes = {
+					119567F51DF0CF5500BF7F13 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5959A6811CCAA4CC005031E6;
+					};
 					5959A6811CCAA4CC005031E6 = {
 						CreatedOnToolsVersion = 7.3;
 						LastSwiftMigration = 0810;
@@ -208,11 +271,19 @@
 			targets = (
 				5959A6811CCAA4CC005031E6 /* RichTextVC-iOS-Example */,
 				5959A6951CCAA4CC005031E6 /* RichTextVC-iOS-Tests */,
+				119567F51DF0CF5500BF7F13 /* RichTextVC-iOS-ExampleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		119567F41DF0CF5500BF7F13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5959A6801CCAA4CC005031E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,7 +346,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6C2E4AED241C08D83D3C4323 /* [CP] Check Pods Manifest.lock */ = {
@@ -290,7 +361,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		83A65C45CD374C8C8655E5C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		93DD62D80B05B64DD705FD38 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextVC-iOS-ExampleTests/Pods-RichTextVC-iOS-ExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B2399E34FF22AF6298BDD00A /* [CP] Copy Pods Resources */ = {
@@ -306,6 +407,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextVC-iOS-Tests/Pods-RichTextVC-iOS-Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7F00EBFEA9AC7167C0AE77A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RichTextVC-iOS-ExampleTests/Pods-RichTextVC-iOS-ExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CB7C15D72403EE6B35B5AAE7 /* [CP] Embed Pods Frameworks */ = {
@@ -326,6 +442,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		119567F21DF0CF5500BF7F13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				119567F91DF0CF5500BF7F13 /* RichTextVC_iOS_ExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5959A67E1CCAA4CC005031E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -346,6 +470,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		119567FC1DF0CF5500BF7F13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5959A6811CCAA4CC005031E6 /* RichTextVC-iOS-Example */;
+			targetProxy = 119567FB1DF0CF5500BF7F13 /* PBXContainerItemProxy */;
+		};
 		5959A6981CCAA4CC005031E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5959A6811CCAA4CC005031E6 /* RichTextVC-iOS-Example */;
@@ -373,6 +502,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		119567FD1DF0CF5500BF7F13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C557A8CC724D55D2BDCCB5F /* Pods-RichTextVC-iOS-ExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = "RichTextVC-iOS-ExampleTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lyokotech.RichTextVC-iOS-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RichTextVC-iOS-Example.app/RichTextVC-iOS-Example";
+			};
+			name = Debug;
+		};
+		119567FE1DF0CF5500BF7F13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8887BF4486E5693B7770B505 /* Pods-RichTextVC-iOS-ExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = "RichTextVC-iOS-ExampleTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lyokotech.RichTextVC-iOS-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RichTextVC-iOS-Example.app/RichTextVC-iOS-Example";
+			};
+			name = Release;
+		};
 		5959A69D1CCAA4CC005031E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -523,6 +688,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		119567FF1DF0CF5500BF7F13 /* Build configuration list for PBXNativeTarget "RichTextVC-iOS-ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				119567FD1DF0CF5500BF7F13 /* Debug */,
+				119567FE1DF0CF5500BF7F13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		5959A67D1CCAA4CC005031E6 /* Build configuration list for PBXProject "RichTextVC-iOS-Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

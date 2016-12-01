@@ -11,16 +11,14 @@ import RichTextVC_iOS
 
 class ViewController: RichTextViewController {
 
+    @IBOutlet weak var myTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        textView = myTextView
+        textView.becomeFirstResponder()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
 }
 

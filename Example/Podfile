@@ -7,6 +7,10 @@ target 'RichTextVC-iOS-Example' do
   pod 'RichTextVC-iOS', :path => '../'
 end
 
+target 'RichTextVC-iOS-ExampleTests' do
+    pod 'RichTextVC-iOS', :path => '../'
+end
+
 target 'RichTextVC-iOS-Tests' do
   pod 'RichTextVC-iOS', :path => '../'
 end
