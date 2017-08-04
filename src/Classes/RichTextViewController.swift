@@ -352,13 +352,13 @@ open class RichTextViewController: UIViewController {
             let previousRange = NSRange(location: range.location - RichTextViewController.bulletedLineStarter.length, length: RichTextViewController.bulletedLineStarter.length)
             let bulletedString = "\n" + RichTextViewController.bulletedLineStarter
             
-            textView.textStorage.beginEditing()
             if let subString = textView.attributedText?.attributedSubstring(from: previousRange).string, subString == RichTextViewController.bulletedLineStarter {
+                textView.textStorage.beginEditing()
                 textView.textStorage.replaceCharacters(in: previousRange, with: NSAttributedString(string: "", attributes: textView.typingAttributes))
+                textView.textStorage.endEditing()
             } else {
                 addText(bulletedString, toTextView: textView, atIndex: range.location)
             }
-            textView.textStorage.endEditing()
             textView.selectedRange = NSRange(location: range.location + (bulletedString as NSString).length, length: 0)
             
             return true
