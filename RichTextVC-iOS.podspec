@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RichTextVC-iOS"
-  s.version          = "2.0.3"
+  s.version          = "2.0.4"
   s.summary          = "A Rich Text ViewController for iOS."
 
 # This description is used to generate tags and improve search results.
