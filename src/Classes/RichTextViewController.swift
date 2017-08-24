@@ -767,7 +767,7 @@ extension RichTextViewController: UITextViewDelegate {
     func textChanged(_ notification: Notification) {
         guard notification.object as? UITextView == textView else { return }
 
-        if let typingAttributes = previousTypingAttributes { textView.typingAttributes = attributes }
+        if let typingAttributes = previousTypingAttributes { textView.typingAttributes = typingAttributes }
 
         if textView.selectedRange.endLocation == textView.text.length {
             textView.typingAttributes[NSParagraphStyleAttributeName] = defaultParagraphStyle
