@@ -582,7 +582,15 @@ open class RichTextViewController: UIViewController {
     open func selectionContainsBold(_ range: NSRange) -> Bool {
         guard !disableBold else { return false }
         
-        var font = range.length == 0 ? textView.typingAttributes[NSFontAttributeName] as? UIFont : nil
+        var font: UIFont?
+        if range.length == 0 {
+            if let previousTypingAttributes = previousTypingAttributes, range.endLocation == textView.text.length {
+                font = previousTypingAttributes[NSFontAttributeName] as? UIFont
+            } else {
+                font = textView.typingAttributes[NSFontAttributeName] as? UIFont
+            }
+        }
+        
         textView.attributedText.enumerateAttributes(in: range, options: []) { dictionary, _, _ in
             font = font ?? dictionary[NSFontAttributeName] as? UIFont
         }
@@ -613,7 +621,15 @@ open class RichTextViewController: UIViewController {
     open func selectionContainsItalic(_ range: NSRange) -> Bool {
         guard !disableItalic else { return false }
         
-        var font = range.length == 0 ? textView.typingAttributes[NSFontAttributeName] as? UIFont : nil
+        var font: UIFont?
+        if range.length == 0 {
+            if let previousTypingAttributes = previousTypingAttributes, range.endLocation == textView.text.length {
+                font = previousTypingAttributes[NSFontAttributeName] as? UIFont
+            } else {
+                font = textView.typingAttributes[NSFontAttributeName] as? UIFont
+            }
+        }
+        
         textView.attributedText.enumerateAttributes(in: range, options: []) { dictionary, _, _ in
             font = font ?? dictionary[NSFontAttributeName] as? UIFont
         }
@@ -768,10 +784,6 @@ extension RichTextViewController: UITextViewDelegate {
         guard notification.object as? UITextView == textView else { return }
 
         if let typingAttributes = previousTypingAttributes { textView.typingAttributes = typingAttributes }
-
-        if textView.selectedRange.endLocation == textView.text.length {
-            textView.typingAttributes[NSParagraphStyleAttributeName] = defaultParagraphStyle
-        }
     }
     
 }
