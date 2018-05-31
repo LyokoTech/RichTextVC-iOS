@@ -1,10 +1,10 @@
-language: objective-c
-osx_image: xcode8
+language: swift
+osx_image: xcode9.3
 notifications:
   slack: lyokotech:7AmemNHORB2ShidELPFrYeUO
   email: false
 before_install:
-- gem install cocoapods -v '1.1.1' 
+- gem install cocoapods -v '1.5.3' 
 script:
-- set -o pipefail && xcodebuild clean build -workspace Example/RichTextVC-iOS-Example.xcworkspace -scheme RichTextVC-iOS-Example -sdk iphonesimulator -destination 'OS=9.3,name=iPhone 5,platform=iOS Simulator' | xcpretty
+- set -o pipefail && xcodebuild clean build -workspace Example/RichTextVC-iOS-Example.xcworkspace -scheme RichTextVC-iOS-Example -sdk iphonesimulator -destination 'OS=11.3,name=iPhone 8,platform=iOS Simulator' | xcpretty
 - pod lib lint
