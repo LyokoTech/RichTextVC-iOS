@@ -634,7 +634,7 @@ open class RichTextViewController: UIViewController {
             font = font ?? dictionary[NSAttributedStringKey.font] as? UIFont
         }
         
-        return font?.fontName == boldFont?.fontName || font?.fontName == boldItalicFont?.fontName
+        return font?.fontName == italicFont?.fontName || font?.fontName == boldItalicFont?.fontName
     }
     
     open func toggleItalic() {
