@@ -1,6 +1,6 @@
 {
   "name": "RichTextVC-iOS",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "summary": "A Rich Text ViewController for iOS.",
   "description": "A ViewController for iOS that contains a UITextView for adding rich text",
   "homepage": "https://github.com/LyokoTech/RichTextVC-iOS",
@@ -10,11 +10,12 @@
   },
   "source": {
     "git": "https://github.com/LyokoTech/RichTextVC-iOS.git",
-    "tag": "3.0.0"
+    "tag": "3.1.0"
   },
   "platforms": {
     "ios": "9.0"
   },
   "requires_arc": true,
-  "source_files": "src/Classes/**/*.swift"
+  "source_files": "src/Classes/**/*.swift",
+  "swift_version": "4.2"
 }

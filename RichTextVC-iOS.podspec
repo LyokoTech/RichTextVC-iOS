@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RichTextVC-iOS"
-  s.version          = "3.0.2"
+  s.version          = "3.1.0"
   s.summary          = "A Rich Text ViewController for iOS."
 
 # This description is used to generate tags and improve search results.
@@ -29,5 +29,6 @@ A ViewController for iOS that contains a UITextView for adding rich text
   s.requires_arc = true
 
   s.source_files = 'src/Classes/**/*.swift'
-
+  s.swift_version = '4.2'
+  
 end
